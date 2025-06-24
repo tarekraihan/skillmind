@@ -45,7 +45,7 @@ export default function ChatPage() {
         "C. I'm a mix of both",
       ]);
     }
-  }, []);
+  }, [messages]);
   interface JobMatch {
     job_id: string;
     match_score: number;
@@ -102,8 +102,8 @@ export default function ChatPage() {
       }
 
       throw new Error("No valid JSON found.");
-    } catch (err: any) {
-      console.error("Failed to extract JSON:", err.message);
+    } catch (err) {
+      console.error("Failed to extract JSON:", err);
       return [];
     }
   }
