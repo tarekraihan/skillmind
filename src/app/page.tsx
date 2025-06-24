@@ -1,16 +1,33 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
+//import { useRouter } from "next/navigation";
 import ResultCard from "@/components/ResultCard";
 
 export default function ChatPage() {
-  const [messages, setMessages] = React.useState<any[]>([]);
+  const [messages, setMessages] = React.useState<
+    { role: string; content: string }[]
+  >([]);
   const [input, setInput] = React.useState("");
   const [options, setOptions] = React.useState<string[]>([]);
   const [loading, setLoading] = React.useState(false);
-  const [results, setResults] = React.useState<any[]>([]);
-  const router = useRouter();
+  const [results, setResults] = React.useState<
+    {
+      jobTitle: string;
+      matchScore: number;
+      whyFit: string;
+      whatYouDo: string;
+      labels: string[];
+      match: {
+        college: string;
+        program: string;
+        duration: string;
+        link: string;
+        description: string;
+      };
+    }[]
+  >([]);
+  //const router = useRouter();
 
   const API_URL = "/api/gpt";
   const MATCH_API = "/api/match";
@@ -29,28 +46,34 @@ export default function ChatPage() {
       ]);
     }
   }, []);
-
-  function correctStringToJson(input: string) {
-    // Trim whitespace and wrap in brackets if not already an array
-    let corrected = `[${input.trim()}]`;
-
-    // Replace newlines and escape sequences
-    corrected = corrected
-      .replace(/\\n/g, "")
-      .replace(/\\"/g, '"')
-      .replace(/},\s*{/g, "},{"); // ensure proper object separation
-
-    // Parse to JSON
-    try {
-      const jsonArray = JSON.parse(corrected);
-      return jsonArray;
-    } catch (err) {
-      console.error("Failed to parse JSON:", err);
-      return null;
-    }
+  interface JobMatch {
+    job_id: string;
+    match_score: number;
+    why_fit: string;
+    what_you_do: string;
+    labels: string[];
   }
+  // function correctStringToJson(input: string) {
+  //   // Trim whitespace and wrap in brackets if not already an array
+  //   let corrected = `[${input.trim()}]`;
 
-  function extractJsonFromText(responseText: string): any {
+  //   // Replace newlines and escape sequences
+  //   corrected = corrected
+  //     .replace(/\\n/g, "")
+  //     .replace(/\\"/g, '"')
+  //     .replace(/},\s*{/g, "},{"); // ensure proper object separation
+
+  //   // Parse to JSON
+  //   try {
+  //     const jsonArray = JSON.parse(corrected);
+  //     return jsonArray;
+  //   } catch (err) {
+  //     console.error("Failed to parse JSON:", err);
+  //     return null;
+  //   }
+  // }
+
+  function extractJsonFromText(responseText: string): JobMatch[] {
     try {
       // Step 1: Clean escaped characters
       const unescaped = responseText
@@ -63,25 +86,25 @@ export default function ChatPage() {
 
       if (multipleObjectPattern.test(unescaped)) {
         const wrapped = `[${unescaped}]`; // wrap in array brackets
-        return JSON.parse(wrapped);
+        return JSON.parse(wrapped) as JobMatch[];
       }
 
       // Step 3: Try direct array match if exists
       const arrayMatch = unescaped.match(/\[\s*{[\s\S]*}\s*\]/);
       if (arrayMatch) {
-        return JSON.parse(arrayMatch[0]);
+        return JSON.parse(arrayMatch[0]) as JobMatch[];
       }
 
       // Step 4: Fallback to single object match
       const singleMatch = unescaped.match(/{[\s\S]*}/);
       if (singleMatch) {
-        return JSON.parse(singleMatch[0]);
+        return [JSON.parse(singleMatch[0]) as JobMatch];
       }
 
       throw new Error("No valid JSON found.");
     } catch (err: any) {
       console.error("Failed to extract JSON:", err.message);
-      return null;
+      return [];
     }
   }
 

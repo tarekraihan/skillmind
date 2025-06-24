@@ -2,7 +2,9 @@
 import * as React from "react";
 
 export default function ChatBot() {
-  const [messages, setMessages] = React.useState<any[]>([]);
+  const [messages, setMessages] = React.useState<
+    { role: string; content: string }[]
+  >([]);
   const [input, setInput] = React.useState("");
   const [options, setOptions] = React.useState<string[]>([]);
   const [loading, setLoading] = React.useState(false);
@@ -54,6 +56,7 @@ export default function ChatBot() {
       ]);
       setOptions(newOptions);
     } catch (err) {
+      console.error("Error:", err);
       setMessages([
         ...updatedMessages,
         { role: "assistant", content: "⚠️ Something went wrong." },
