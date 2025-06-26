@@ -1,255 +1,316 @@
-"use client";
+import ResponsiveAppBar from "./components/ResponsiveAppBar";
+import {
+  Typography,
+  Container,
+  Box,
+  Grid,
+  Paper,
+  Stack,
+  Button,} from "@mui/material";
+import FAQ from "./components/FAQ";
+import GetStarted from "./components/GetStarted";
+import Footer from "./components/Footer";
 
-import * as React from "react";
-//import { useRouter } from "next/navigation";
-import ResultCard from "@/components/ResultCard";
-
-export default function ChatPage() {
-  const [messages, setMessages] = React.useState<
-    { role: string; content: string }[]
-  >([]);
-  const [input, setInput] = React.useState("");
-  const [options, setOptions] = React.useState<string[]>([]);
-  const [loading, setLoading] = React.useState(false);
-  const [results, setResults] = React.useState<
-    {
-      jobTitle: string;
-      matchScore: number;
-      whyFit: string;
-      whatYouDo: string;
-      labels: string[];
-      match: {
-        college: string;
-        program: string;
-        duration: string;
-        link: string;
-        description: string;
-      };
-    }[]
-  >([]);
-  //const router = useRouter();
-
-  const API_URL = "/api/gpt";
-  const MATCH_API = "/api/match";
-
-  React.useEffect(() => {
-    if (messages.length === 0) {
-      const greeting = {
-        role: "assistant",
-        content: `👋 Welcome to SkillMind! Let's begin:\n\nA. I enjoy trying new things\nB. I prefer familiar routines\nC. I'm a mix of both`,
-      };
-      setMessages([greeting]);
-      setOptions([
-        "A. I enjoy trying new things",
-        "B. I prefer familiar routines",
-        "C. I'm a mix of both",
-      ]);
-    }
-  }, [messages]);
-  interface JobMatch {
-    job_id: string;
-    match_score: number;
-    why_fit: string;
-    what_you_do: string;
-    labels: string[];
-  }
-  // function correctStringToJson(input: string) {
-  //   // Trim whitespace and wrap in brackets if not already an array
-  //   let corrected = `[${input.trim()}]`;
-
-  //   // Replace newlines and escape sequences
-  //   corrected = corrected
-  //     .replace(/\\n/g, "")
-  //     .replace(/\\"/g, '"')
-  //     .replace(/},\s*{/g, "},{"); // ensure proper object separation
-
-  //   // Parse to JSON
-  //   try {
-  //     const jsonArray = JSON.parse(corrected);
-  //     return jsonArray;
-  //   } catch (err) {
-  //     console.error("Failed to parse JSON:", err);
-  //     return null;
-  //   }
-  // }
-
-  function extractJsonFromText(responseText: string): JobMatch[] {
-    try {
-      // Step 1: Clean escaped characters
-      const unescaped = responseText
-        .replace(/\\n/g, "") // remove \n
-        .replace(/\\"/g, '"') // unescape quotes
-        .trim();
-
-      // Step 2: Check if it starts with { and has multiple objects separated by }, {
-      const multipleObjectPattern = /^{[\s\S]*},\s*{[\s\S]*}$/;
-
-      if (multipleObjectPattern.test(unescaped)) {
-        const wrapped = `[${unescaped}]`; // wrap in array brackets
-        return JSON.parse(wrapped) as JobMatch[];
-      }
-
-      // Step 3: Try direct array match if exists
-      const arrayMatch = unescaped.match(/\[\s*{[\s\S]*}\s*\]/);
-      if (arrayMatch) {
-        return JSON.parse(arrayMatch[0]) as JobMatch[];
-      }
-
-      // Step 4: Fallback to single object match
-      const singleMatch = unescaped.match(/{[\s\S]*}/);
-      if (singleMatch) {
-        return [JSON.parse(singleMatch[0]) as JobMatch];
-      }
-
-      throw new Error("No valid JSON found.");
-    } catch (err) {
-      console.error("Failed to extract JSON:", err);
-      return [];
-    }
-  }
-
-  const handleSend = async (selected?: string) => {
-    const finalInput = selected || input.trim();
-    if (!finalInput) return;
-
-    const userMessage = { role: "user", content: finalInput };
-    const updatedMessages = [...messages, userMessage];
-
-    setMessages(updatedMessages);
-    setInput("");
-    setOptions([]);
-    setLoading(true);
-
-    try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: updatedMessages }),
-      });
-
-      const data = await response.json();
-
-      console.log("🧠 Full GPT response:", data);
-
-      const botMessage = data.choices?.[0]?.message;
-      if (!botMessage) throw new Error("No bot message returned");
-
-      console.log("💬 Bot message content:", botMessage.content);
-
-      const allMessages = [...updatedMessages, botMessage];
-      setMessages(allMessages);
-
-      const newOptions = botMessage.content
-        ?.split("\n")
-        .filter((line: string) => /^[A-C]\./.test(line))
-        .map((line: string) => line.trim());
-      if (newOptions?.length > 0) {
-        setOptions(newOptions);
-      }
-
-      if (
-        botMessage?.content?.includes("{") ||
-        botMessage?.content?.includes("[")
-      ) {
-        // const jsonRegex = /```json\s*([\s\S]*?)```|(\[[\s\S]*?\])|({[\s\S]*?})/;
-        // const match = botMessage.content.match(jsonRegex);
-        // console.log("Bot message content:", botMessage.content);
-        // const match = correctStringToJson(botMessage.content);
-        // console.log("🔍 Match:", match);
-        const jobMatches = extractJsonFromText(botMessage.content);
-        console.log("🔍 jobMatches:", jobMatches);
-        if (jobMatches) {
-          // const jsonString = match[1] || match[2] || match[3];
-          // console.log("🔍 Matched JSON block string:", jsonString);
-
-          try {
-            // const cleaned = jsonString.trim().replace(/[\u201C\u201D]/g, '"');
-            // console.log("🧾 Raw JSON string before parsing:\n", cleaned);
-            // let jobMatches = JSON.parse(cleaned);
-
-            // // 🧹 Normalize structure
-            // if (!Array.isArray(jobMatches) && typeof jobMatches === "object") {
-            //   jobMatches = [jobMatches];
-            // }
-            // if (!Array.isArray(jobMatches)) {
-            //   jobMatches = [jobMatches];
-            // }
-            console.log("✅ Formatted jobMatches:", JSON.stringify(jobMatches));
-
-            const matchRes = await fetch(MATCH_API, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(jobMatches),
-            });
-
-            const matchData = await matchRes.json();
-            console.log("🧪 Received matchData:", matchData);
-            setResults(matchData.results);
-          } catch (err) {
-            console.error("❌ JSON parse error:", err);
-          }
-        } else {
-          console.warn("⚠️ No valid JSON block found.");
-        }
-      }
-    } catch (error) {
-      console.error("❌ Chat error:", error);
-    }
-
-    setLoading(false);
-  };
-
+export default function Home() {
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <div className="bg-gray-50 p-4 rounded-lg shadow-sm mb-4 h-[300px] overflow-y-auto">
-        {messages.map((msg, i) => (
-          <div key={i} className="mb-2 whitespace-pre-wrap">
-            <strong>{msg.role === "user" ? "You" : "SkillMind"}:</strong>{" "}
-            {msg.content}
-          </div>
-        ))}
-      </div>
+    <Box sx={{ fontFamily: "Inter, sans-serif" }}>
+      {/* Header */}
+      <ResponsiveAppBar />
 
-      {options.length > 0 && (
-        <div className="flex flex-col gap-2 mb-4">
-          {options.map((opt, i) => (
-            <button
-              key={i}
-              onClick={() => handleSend(opt)}
-              className="px-4 py-2 text-left bg-white border border-gray-300 rounded-md hover:bg-gray-100"
-            >
-              {opt}
-            </button>
+      {/* Hero Section */}
+      <Box sx={{ py: 10, textAlign: "center", backgroundColor: "#f9f9f9" }}>
+        <Container maxWidth="lg">
+          <Grid container spacing={2}>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Box sx={{ textAlign: "left" }}>
+                <Typography
+                  variant="h1"
+                  style={{
+                    fontWeight: "bold",
+                    fontFamily: "Inter",
+                    fontSize: "50px",
+                  }}
+                >
+                  Unlock Your Team's Potential
+                </Typography>
+                <Typography variant="subtitle1" gutterBottom>
+                  AI-powered guidance to help individuals discover the best job
+                  fit and the education that gets them there.
+                </Typography>
+                <Stack direction="row" spacing={2}>
+                  <Button variant="contained">Book a Demo</Button>
+
+                  <Button size="medium">How it works</Button>
+                </Stack>
+              </Box>
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Box>
+                <Box
+                  component="img"
+                  src="hero-image.png"
+                  alt="Hero Image"
+                  sx={{
+                    width: "100%",
+                  }}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* Why SkillMind */}
+      <Box sx={{ py: 10 }}>
+        <Container>
+          <Typography variant="h2" align="center" gutterBottom fontWeight="500">
+            Why SkillMind
+          </Typography>
+          <Typography variant="body1" sx={{ textAlign: "center", mb: 2 }}>
+            We're different from generic career tests. Here's how we help you
+            find your true calling.
+          </Typography>
+          <Grid container spacing={2} mt={2}>
+            {[
+              "Personalized, Not Generic",
+              "All That Understands People",
+              "Education That Matches Careers",
+              "Designed for Workforce Readiness",
+            ].map((title, i) => (
+              <Grid size={{ xs: 12, md: 6 }} key={i}>
+                <Paper sx={{ p: 3, height: "100%" }}>
+                  <Typography variant="h6" gutterBottom>
+                    {title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {title === "Personalized, Not Generic" &&
+                      "Uses OCEAN psychology model to assess strengths and match to career paths."}
+                    {title === "All That Understands People" &&
+                      "Conversational AI dynamically asks questions and learns about the user."}
+                    {title === "Education That Matches Careers" &&
+                      "Every job recommendation is linked with accessible programs."}
+                    {title === "Designed for Workforce Readiness" &&
+                      "Perfect for job seekers, reentry programs, and upskilling initiatives."}
+                  </Typography>
+                </Paper>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* How It Works */}
+      <Box sx={{ py: 10, backgroundColor: "#f9f9f9" }}>
+        <Container>
+          <Typography variant="h2" align="center" gutterBottom fontWeight="500">
+            How It Works
+          </Typography>
+          <Typography variant="body1" sx={{ textAlign: "center", mb: 2 }}>
+            We use AI + psychology to find your best-fit career.
+          </Typography>
+          <Grid container spacing={2} justifyContent="center" mt={4}>
+            {[
+              {
+                step: 1,
+                bgColor: "primary.main",
+                title: "Chat with AI",
+                desc: "Understand your personality and preferences.",
+              },
+              {
+                step: 2,
+                bgColor: "success.main",
+                title: "Smart Job Matching",
+                desc: "You’ll get 2–3 jobs that actually fit you.",
+              },
+              {
+                step: 3,
+                bgColor: "warning.main",
+                title: "Education Ready",
+                desc: "Each job includes a course to get started.",
+              },
+            ].map(({ step, title, desc, bgColor }) => (
+              <Grid size={{ xs: 12, md: 4 }} spacing={2} key={step}>
+                <Box
+                  textAlign="center"
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      borderRadius: "50%",
+                      width: "50px",
+                      height: "50px",
+                      p: 1,
+                    }}
+                    bgcolor={bgColor}
+                    color="white"
+                  >
+                    {step}
+                  </Typography>
+                  <Typography variant="h6" mt={1}>
+                    {title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {desc}
+                  </Typography>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* Courses Offered By */}
+      <Container sx={{ py: 10 }}>
+        <Typography variant="h2" align="center" gutterBottom fontWeight="500">
+          Courses Offered By
+        </Typography>
+        <Typography variant="body1" sx={{ textAlign: "center", mb: 2 }}>
+          Partnered with leading community colleges across Arizona
+        </Typography>
+        <Grid container spacing={2} justifyContent="center" mt={4}>
+          {[
+            {
+              step: 1,
+              title: "MCC",
+              desc: "Maricopa Community Colleges",
+            },
+            {
+              step: 2,
+              title: "RSC",
+              desc: "Rio Salado College",
+            },
+            {
+              step: 3,
+              bgColor: "warning.main",
+              title: "PCC",
+              desc: "Pima Community College",
+            },
+            {
+              step: 4,
+              bgColor: "warning.main",
+              title: "CAC",
+              desc: "Central Arizona College",
+            },
+          ].map(({ step, title, desc, bgColor }) => (
+            <Grid size={{ xs: 6, md: 3 }} key={step}>
+              <Box
+                textAlign="center"
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  variant="h5"
+                  sx={{
+                    borderRadius: "10%",
+                    width: "100px",
+                    height: "50px",
+                    p: 1,
+                  }}
+                  bgcolor="text.disabled"
+                  color="#fff"
+                >
+                  {title}
+                </Typography>
+
+                <Typography variant="body2" color="text.secondary">
+                  {desc}
+                </Typography>
+              </Box>
+            </Grid>
           ))}
-        </div>
-      )}
+        </Grid>
+      </Container>
+      {/* Meet the People Behind SkillMind*/}
+      <Box sx={{ py: 10, backgroundColor: "#f9f9f9" }}>
+        <Container>
+          <Typography variant="h2" align="center" gutterBottom fontWeight="500">
+            Meet the People Behind SkillMind
+          </Typography>
+          <Typography variant="body1" sx={{ textAlign: "center", mb: 2 }}>
+            We believe in access, equity, and personalized pathways to
+            opportunity.
+          </Typography>
+          <Grid container spacing={2} justifyContent="center" mt={4}>
+            {[
+              {
+                step: "JD",
+                bgColor: "primary.main",
+                title: "Jane Doe",
+                post: "Founder & CEO",
+                desc: "Former workforce development specialist with 10+ years helping people find meaningful careers.",
+              },
+              {
+                step: "MS",
+                bgColor: "success.main",
+                title: "Mike Smith",
+                post: "Head of AI Development",
+                desc: "AI researcher focused on personality psychology and career matching algorithms.",
+              },
+              {
+                step: "SJ",
+                bgColor: "warning.main",
+                title: "Sarah Johnson",
+                post: "Education Partnerships",
+                desc: "Building bridges between career paths and educational opportunities at community colleges.",
+              },
+            ].map(({ step, title, desc, bgColor, post }) => (
+              <Grid size={{ xs: 12, md: 4 }} key={step}>
+                <Paper sx={{ p: 2, height: "260px" }}>
+                  <Box
+                    textAlign="center"
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      variant="h4"
+                      sx={{
+                        borderRadius: "50%",
+                        width: "60px",
+                        height: "60px",
+                        p: 1.6,
+                      }}
+                      bgcolor={bgColor}
+                      color="white"
+                    >
+                      {step}
+                    </Typography>
+                    <Typography variant="h5" mt={1}>
+                      {title}
+                    </Typography>
+                    <Typography variant="body1" mt={1}>
+                      {post}
+                    </Typography>
 
-      <div className="flex gap-2">
-        <input
-          value={input}
-          onChange={e => setInput(e.target.value)}
-          placeholder="Type your message..."
-          className="flex-1 px-4 py-2 border rounded-md"
-        />
-        <button
-          onClick={() => handleSend()}
-          disabled={loading}
-          className="bg-blue-600 text-white px-4 py-2 rounded-md"
-        >
-          {loading ? "..." : "Send"}
-        </button>
-      </div>
-
-      {results.length > 0 && (
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4 text-blue-700">
-            🎯 Best Match Jobs & Courses
-          </h2>
-          {results.map((res, i) => (
-            <ResultCard key={i} result={res} />
-          ))}
-        </div>
-      )}
-    </div>
+                    <Typography variant="body2" color="text.secondary" mt={1}>
+                      {desc}
+                    </Typography>
+                  </Box>
+                </Paper>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+      {/* FAQ */}
+      <FAQ />
+      {/* GetStarted */}
+      <GetStarted />
+      {/* Footer */}
+      <Footer />
+    </Box>
   );
 }
