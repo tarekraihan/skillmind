@@ -7,6 +7,7 @@ import {
   Paper,
   Stack,
   Button,} from "@mui/material";
+  import Link from 'next/link';
 import FAQ from "./components/FAQ";
 import GetStarted from "./components/GetStarted";
 import Footer from "./components/Footer";
@@ -31,15 +32,16 @@ export default function Home() {
                     fontSize: "50px",
                   }}
                 >
-                  Unlock Your Team's Potential
+                  Unlock Your Teams Potential
                 </Typography>
                 <Typography variant="subtitle1" gutterBottom>
                   AI-powered guidance to help individuals discover the best job
                   fit and the education that gets them there.
                 </Typography>
                 <Stack direction="row" spacing={2}>
+                <Link href="/skillmind">
                   <Button variant="contained">Book a Demo</Button>
-
+                </Link>
                   <Button size="medium">How it works</Button>
                 </Stack>
               </Box>
@@ -67,7 +69,7 @@ export default function Home() {
             Why SkillMind
           </Typography>
           <Typography variant="body1" sx={{ textAlign: "center", mb: 2 }}>
-            We're different from generic career tests. Here's how we help you
+            We are different from generic career tests. Here is how we help you
             find your true calling.
           </Typography>
           <Grid container spacing={2} mt={2}>
@@ -197,7 +199,7 @@ export default function Home() {
               title: "CAC",
               desc: "Central Arizona College",
             },
-          ].map(({ step, title, desc, bgColor }) => (
+          ].map(({ step, title, desc }) => (
             <Grid size={{ xs: 6, md: 3 }} key={step}>
               <Box
                 textAlign="center"

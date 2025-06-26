@@ -12,7 +12,7 @@ const NeedHelpBox: React.FC = () => {
         </Typography>
       </Stack>
       <Typography variant="body2">
-        If you're unsure about any question, you can always type your own
+        If you are unsure about any question, you can always type your own
         response or contact our support team.
       </Typography>
     </Paper>

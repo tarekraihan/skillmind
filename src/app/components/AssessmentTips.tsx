@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Stack, Paper } from "@mui/material";
+import { Typography, Stack, Paper } from "@mui/material";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 
 const AssessmentTips: React.FC = () => {

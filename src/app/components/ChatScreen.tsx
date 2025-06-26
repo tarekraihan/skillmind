@@ -1,6 +1,6 @@
 // ChatScreen.jsx
 import React from "react";
-import { Box, Typography, Button, Stack, Paper, Avatar } from "@mui/material";
+import { Box, Typography, Button, Stack, Paper, } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const ChatScreen = () => {
@@ -39,8 +39,8 @@ const ChatScreen = () => {
           <Stack direction="row" spacing={2}>
             <Box>
               <Typography variant="body2" color="text.secondary">
-                Hi! I'm here to help you discover careers that truly fit you.
-                Let's start with understanding your work style:
+                Hi! Im here to help you discover careers that truly fit you.
+                Lets start with understanding your work style:
               </Typography>
               <Typography
                 variant="subtitle1"

@@ -46,7 +46,7 @@ export default function FAQ() {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              No! SkillMind works for people at all education levels. We'll
+              No! SkillMind works for people at all education levels. We will
               match you with careers and show you exactly what education or
               training you need to get there, including GED programs if needed.
             </AccordionDetails>
@@ -62,7 +62,7 @@ export default function FAQ() {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              You'll receive 2-3 personalized career recommendations with
+              You will receive 2-3 personalized career recommendations with
               specific education pathways from our partner colleges. We also
               provide next steps and can connect you with enrollment counselors.
             </AccordionDetails>

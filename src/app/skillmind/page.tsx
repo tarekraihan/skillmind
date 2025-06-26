@@ -3,9 +3,8 @@
 import * as React from "react";
 //import { useRouter } from "next/navigation";
 import ResultCard from "@/components/ResultCard";
-import { Box, Container, Grid, Paper,Typography, Button, Stack, Avatar } from "@mui/material";
+import { Box, Container, Grid, Paper,Typography, Button, Stack, } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import ChatScreen from "../components/ChatScreen";
 import AssessmentProgress from "../components/AssessmentProgress";
 import AssessmentTips from "../components/AssessmentTips";
 import NeedHelpBox from "../components/NeedHelpBox";
@@ -17,7 +16,7 @@ export default function ChatPage() {
   >([]);
   const [input, setInput] = React.useState("");
   const [options, setOptions] = React.useState<string[]>([]);
-  const [loading, setLoading] = React.useState(false);
+  // const [loading, setLoading] = React.useState(false);
   const [results, setResults] = React.useState<
     {
       jobTitle: string;
@@ -106,7 +105,7 @@ export default function ChatPage() {
     setMessages(updatedMessages);
     setInput("");
     setOptions([]);
-    setLoading(true);
+    // setLoading(true);
 
     try {
       const response = await fetch(API_URL, {
@@ -168,7 +167,7 @@ export default function ChatPage() {
       console.error("❌ Chat error:", error);
     }
 
-    setLoading(false);
+    // setLoading(false);
   };
 
   return (
@@ -244,7 +243,6 @@ export default function ChatPage() {
                   <Stack spacing={1}>
                     {options.map((opt, i) => (
                       <Button
-                      key={index}
                       variant="outlined"
                       fullWidth
                       sx={{

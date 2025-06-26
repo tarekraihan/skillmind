@@ -6,9 +6,9 @@ import {
   Typography,
   Stack,
   Avatar,
-  Link,
   IconButton,
 } from "@mui/material";
+import Link from 'next/link';
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import EmailIcon from "@mui/icons-material/Email";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -33,6 +33,7 @@ const BookADemoCard = () => {
           <CalendarTodayIcon />
         </Avatar>
 
+        
         <Typography variant="h6" fontWeight={600}>
           Book a Demo
         </Typography>
@@ -41,7 +42,7 @@ const BookADemoCard = () => {
           Schedule a 30-minute demo to see SkillMind in action and learn how it
           can help your organization.
         </Typography>
-
+        <Link href="/skillmind">
         <Button
           variant="contained"
           sx={{
@@ -54,6 +55,7 @@ const BookADemoCard = () => {
         >
           Schedule Now
         </Button>
+        </Link>
       </Paper>
 
       {/* Contact Section */}
