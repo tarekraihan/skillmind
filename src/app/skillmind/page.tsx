@@ -4,6 +4,7 @@ import * as React from "react";
 //import { useRouter } from "next/navigation";
 import ResultCard from "@/components/ResultCard";
 // import JobMatchCard, { JobMatch } from '../components/JobMatchCard';
+import ResultHeading from "../components/ResultHeading";
 import {
   Box,
   Container,
@@ -195,74 +196,75 @@ export default function ChatPage() {
                     gap: 2,
                   }}
                 >
-                  {messages.map((msg, i) =>
-                    msg.role !== "user" ? (
-                      <Box
-                        sx={{ display: "flex", flexDirection: "row" }}
-                        key={i}
-                      >
+                  {results.length < 1 &&
+                    messages.map((msg, i) =>
+                      msg.role !== "user" ? (
                         <Box
-                          component="img"
-                          src="chatbot.png"
-                          alt="chat bot"
-                          sx={{
-                            width: "40px",
-                            height: "40px",
-                            mr: 2,
-                          }}
-                        />
-                        <Paper
-                          variant="outlined"
-                          sx={{
-                            p: 2,
-                            borderRadius: 3,
-                            backgroundColor: "#ffffff",
-                          }}
+                          sx={{ display: "flex", flexDirection: "row" }}
+                          key={i}
                         >
-                          <Stack direction="row" spacing={2}>
-                            <Box>
-                              <Typography
-                                variant="subtitle1"
-                                sx={{
-                                  fontWeight: 600,
-                                  mt: 1,
-                                  color: "#0d47a1",
-                                }}
-                              >
-                                {msg.content}
-                              </Typography>
-                            </Box>
-                          </Stack>
-                        </Paper>
-                      </Box>
-                    ) : (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "flex-end",
-                          mt: 2,
-                        }}
-                        key={i}
-                      >
-                        <Box
-                          sx={{
-                            bgcolor: "#1976d2",
-                            color: "#fff",
-                            px: 2,
-                            py: 1,
-                            borderRadius: "15px 0 15px 15px",
-                            maxWidth: "75%",
-                            fontSize: "0.875rem",
-                          }}
-                        >
-                          {msg.content}
+                          <Box
+                            component="img"
+                            src="chatbot.png"
+                            alt="chat bot"
+                            sx={{
+                              width: "40px",
+                              height: "40px",
+                              mr: 2,
+                            }}
+                          />
+                          <Paper
+                            variant="outlined"
+                            sx={{
+                              p: 2,
+                              borderRadius: 3,
+                              backgroundColor: "#ffffff",
+                            }}
+                          >
+                            <Stack direction="row" spacing={2}>
+                              <Box>
+                                <Typography
+                                  variant="subtitle1"
+                                  sx={{
+                                    fontWeight: 600,
+                                    mt: 1,
+                                    color: "#0d47a1",
+                                  }}
+                                >
+                                  {msg.content}
+                                </Typography>
+                              </Box>
+                            </Stack>
+                          </Paper>
                         </Box>
-                        <AccountCircleIcon
-                          sx={{ width: "40px", height: "40px" }}
-                        />
-                      </Box>
-                    )
-                  )}
+                      ) : (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                            mt: 2,
+                          }}
+                          key={i}
+                        >
+                          <Box
+                            sx={{
+                              bgcolor: "#1976d2",
+                              color: "#fff",
+                              px: 2,
+                              py: 1,
+                              borderRadius: "15px 0 15px 15px",
+                              maxWidth: "75%",
+                              fontSize: "0.875rem",
+                            }}
+                          >
+                            {msg.content}
+                          </Box>
+                          <AccountCircleIcon
+                            sx={{ width: "40px", height: "40px" }}
+                          />
+                        </Box>
+                      )
+                    )}
 
                   {options.length > 0 && (
                     <Stack spacing={1}>
@@ -330,14 +332,12 @@ export default function ChatPage() {
                 </div> */}
 
                     {results.length > 0 && (
-                      <div className="mt-8">
-                        <h2 className="text-xl font-semibold mb-4 text-blue-700">
-                          🎯 Best Match Jobs & Courses
-                        </h2>
+                      <Box>
+                        <ResultHeading />
                         {results.map((res, i) => (
                           <ResultCard key={i} result={res} />
                         ))}
-                      </div>
+                      </Box>
                     )}
                   </div>
                 </Box>
