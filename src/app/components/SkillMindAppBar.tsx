@@ -1,16 +1,16 @@
 import React from "react";
 import {
   Toolbar,
-  Typography,
-  Avatar,
+  // Typography,
+  // Avatar,
   Box,
-  Stack,
+  // Stack,
   // LinearProgress,
   // IconButton,
   Paper,
 } from "@mui/material";
 // import MenuIcon from "@mui/icons-material/Menu";
-import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+// import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 
 const SkillMindAppBar = () => {
   // const currentStep = 3;
