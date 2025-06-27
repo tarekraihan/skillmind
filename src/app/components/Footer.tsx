@@ -48,7 +48,9 @@ function Footer() {
                 alignItems: { xs: "center", md: "flex-end" },
               }}
             >
-              <Typography variant="h5">Quick Links</Typography>
+              <Typography variant="h5" sx={{ fontSize: "1rem" }}>
+                Quick Links
+              </Typography>
               <Link href="#" underline="hover" color="inherit">
                 Privacy Policy
               </Link>

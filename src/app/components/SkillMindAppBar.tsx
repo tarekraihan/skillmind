@@ -33,7 +33,7 @@ const SkillMindAppBar = () => {
           component="img"
           src="skillmind-ai-assistant.png"
           alt="SkillMind Logo"
-          sx={{ display: { xs: "none", md: "flex" }, width: "220px" }}
+          sx={{ display:"flex", width: "220px" }}
         />
         {/* <Stack direction="row" alignItems="center" spacing={2}> */}
         {/* <Avatar sx={{ bgcolor: "#2563eb", width: 40, height: 40 }}>

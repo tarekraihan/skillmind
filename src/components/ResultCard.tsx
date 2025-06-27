@@ -1,7 +1,21 @@
 "use client";
 
 import * as React from "react";
-import { GraduationCap } from "lucide-react";
+import {
+  Box,
+  Typography,
+  Chip,
+  Card,
+  CardContent,
+  Stack,
+  Button,
+  Divider,
+  Avatar,
+} from "@mui/material";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
+import SchoolIcon from "@mui/icons-material/School";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 interface ResultProps {
   result: {
@@ -24,60 +38,147 @@ export default function ResultCard({ result }: ResultProps) {
   if (!result) return null;
 
   return (
-    <div className="bg-white rounded-2xl shadow-md p-6 mb-6 border border-gray-100">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <div className="bg-emerald-100 p-2 rounded-full">
-            <GraduationCap size={18} className="text-emerald-700" />
-          </div>
-          <h2 className="text-lg font-bold text-gray-800">{result.jobTitle}</h2>
-        </div>
-        <span className="bg-emerald-500 text-white text-sm font-medium px-3 py-1 rounded-full">
-          {result.matchScore}% Match
-        </span>
-      </div>
-
-      <div className="mt-4">
-        <p className="text-yellow-700 font-semibold mb-1">📌 Why This Job:</p>
-        <p>{result.whyFit}</p>
-      </div>
-
-      {/* <div className="mt-4">
-        <p className="text-gray-800 font-semibold mb-1">🛠 What You'll Do:</p>
-        <p>{result.whatYouDo}</p>
-      </div> */}
-
-      <div className="flex flex-wrap gap-2 mt-4">
-        {result.labels.map((label, i) => (
-          <span
-            key={i}
-            className="text-xs bg-gray-100 border border-gray-300 px-3 py-1 rounded-full"
-          >
-            {label}
-          </span>
-        ))}
-      </div>
-
-      <div className="bg-blue-50 p-4 rounded-lg mt-6">
-        <p className="text-blue-700 font-semibold mb-1">
-          🎓 Recommended Training:
-        </p>
-        <p className="font-bold text-gray-800">{result.match.college}</p>
-        <p className="text-sm text-gray-700">{result.match.program}</p>
-        <p className="text-xs text-gray-500">
-          Duration: {result.match.duration}
-        </p>
-        <a
-          href={result.match.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block mt-3"
+    <Card
+      sx={{
+        borderRadius: 3,
+        boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+        p: 3,
+        mb: 4,
+        backgroundColor: "#fff",
+      }}
+    >
+      <CardContent sx={{ p: 0 }}>
+        {/* Header */}
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
         >
-          <button className="bg-blue-600 text-white px-4 py-2 text-sm rounded-md hover:bg-blue-700">
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Avatar sx={{ bgcolor: "#1E40AF", width: 36, height: 36 }}>
+              <WorkOutlineIcon fontSize="small" />
+            </Avatar>
+            <Typography variant="h6" fontWeight="bold">
+              {result.jobTitle}
+            </Typography>
+          </Stack>
+          <Chip
+            label={`${result.matchScore}% Match`}
+            sx={{
+              backgroundColor: "#22C55E",
+              color: "#fff",
+              fontWeight: 500,
+              px: 1.5,
+              py: 0.5,
+              borderRadius: 5,
+              fontSize: 13,
+            }}
+          />
+        </Stack>
+
+        {/* Why This Job */}
+        <Box mt={3}>
+          <Typography
+            fontWeight="bold"
+            color="warning.main"
+            sx={{ display: "flex", alignItems: "center" }}
+          >
+            <EmojiObjectsIcon sx={{ mr: 1 }} fontSize="small" />
+            Why This Job:
+          </Typography>
+          <Typography variant="body2" mt={0.5}>
+            {result.whyFit}
+          </Typography>
+        </Box>
+
+        {/* What You’ll Do */}
+        <Box mt={3}>
+          <Typography
+            fontWeight="bold"
+            sx={{ display: "flex", alignItems: "center" }}
+          >
+            <WorkOutlineIcon sx={{ mr: 1 }} fontSize="small" />
+            What You’ll Do:
+          </Typography>
+          <Typography variant="body2" mt={0.5}>
+            {result.whatYouDo}
+          </Typography>
+        </Box>
+
+        {/* Tags */}
+        <Stack direction="row" spacing={1} mt={2} flexWrap="wrap">
+          {result.labels.map((label, i) => (
+            <Chip
+              key={i}
+              label={label}
+              icon={<CheckCircleIcon fontSize="small" />}
+              sx={{
+                backgroundColor: label.includes("Openness")
+                  ? "#E0F2FE"
+                  : label.includes("Agreeableness")
+                  ? "#DCFCE7"
+                  : label.includes("GED")
+                  ? "#FEF3C7"
+                  : "#F3F4F6",
+                color: label.includes("Openness")
+                  ? "#0284C7"
+                  : label.includes("Agreeableness")
+                  ? "#16A34A"
+                  : label.includes("GED")
+                  ? "#CA8A04"
+                  : "#374151",
+                fontSize: "12px",
+              }}
+              size="small"
+            />
+          ))}
+        </Stack>
+
+        {/* Training Info Box */}
+        <Box
+          mt={4}
+          p={2}
+          borderRadius={2}
+          sx={{
+            backgroundColor: "#EFF6FF",
+          }}
+        >
+          <Typography
+            fontWeight="bold"
+            sx={{ color: "#1D4ED8", display: "flex", alignItems: "center" }}
+          >
+            <SchoolIcon fontSize="small" sx={{ mr: 1 }} />
+            Recommended Training:
+          </Typography>
+          <Typography fontWeight="bold" mt={1}>
+            {result.match.college}
+          </Typography>
+          <Typography fontSize={14} color="text.secondary">
+            {result.match.program}
+          </Typography>
+          <Typography fontSize={12} color="text.disabled">
+            Duration: {result.match.duration}
+          </Typography>
+
+          <Button
+            variant="contained"
+            size="small"
+            href={result.match.link}
+            target="_blank"
+            sx={{
+              mt: 2,
+              backgroundColor: "#3B82F6",
+              "&:hover": { backgroundColor: "#2563EB" },
+              textTransform: "none",
+              fontSize: 14,
+              fontWeight: 500,
+              borderRadius: 2,
+            }}
+          >
             View Course
-          </button>
-        </a>
-      </div>
-    </div>
+          </Button>
+        </Box>
+      </CardContent>
+    </Card>
   );
 }

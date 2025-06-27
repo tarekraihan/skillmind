@@ -3,6 +3,7 @@
 import * as React from "react";
 //import { useRouter } from "next/navigation";
 import ResultCard from "@/components/ResultCard";
+// import JobMatchCard, { JobMatch } from '../components/JobMatchCard';
 import {
   Box,
   Container,
