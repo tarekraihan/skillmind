@@ -18,7 +18,7 @@ export default function CustomLayout({
           </Box>
         </header>
 
-        <main style={{ padding: "2rem" }}>{children}</main>
+        <Box sx={{ padding: { xs: "0", md: "2rem" } }}>{children}</Box>
 
         <Footer />
       </body>

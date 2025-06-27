@@ -167,6 +167,10 @@ export default function ChatPage() {
 
             const matchData = await matchRes.json();
             console.log("🧪 Received matchData:", matchData);
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
             setResults(matchData.results);
           } catch (err) {
             console.error("❌ JSON parse error:", err);

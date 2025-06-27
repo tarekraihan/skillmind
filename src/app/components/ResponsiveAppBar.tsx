@@ -9,19 +9,19 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
+// import MenuItem from "@mui/material/MenuItem";
 import Badge from "@mui/material/Badge";
 import Link from "next/link";
 
-const pages = [
-  "Home",
-  "Why SkillMind",
-  "How It Works",
-  "Courses",
-  "Team",
-  "FAQ",
-  "Contact",
-];
+// const pages = [
+//   "Home",
+//   "Why SkillMind",
+//   "How It Works",
+//   "Courses",
+//   "Team",
+//   "FAQ",
+//   "Contact",
+// ];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -78,11 +78,11 @@ function ResponsiveAppBar() {
               }}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              {pages.map(page => (
+              {/* {pages.map(page => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
-              ))}
+              ))} */}
             </Menu>
           </Box>
           <Badge
@@ -121,7 +121,7 @@ function ResponsiveAppBar() {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map(page => (
+            {/* {pages.map(page => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
@@ -135,7 +135,7 @@ function ResponsiveAppBar() {
               >
                 {page}
               </Button>
-            ))}
+            ))} */}
           </Box>
 
           <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
