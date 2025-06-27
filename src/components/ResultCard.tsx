@@ -9,7 +9,6 @@ import {
   CardContent,
   Stack,
   Button,
-  Divider,
   Avatar,
 } from "@mui/material";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
