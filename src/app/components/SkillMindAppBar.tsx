@@ -5,17 +5,17 @@ import {
   Avatar,
   Box,
   Stack,
-  LinearProgress,
-  IconButton,
+  // LinearProgress,
+  // IconButton,
   Paper,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+// import MenuIcon from "@mui/icons-material/Menu";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 
 const SkillMindAppBar = () => {
-  const currentStep = 3;
-  const totalSteps = 8;
-  const progress = (currentStep / totalSteps) * 100;
+  // const currentStep = 3;
+  // const totalSteps = 8;
+  // const progress = (currentStep / totalSteps) * 100;
 
   return (
     <Paper
@@ -29,8 +29,14 @@ const SkillMindAppBar = () => {
     >
       <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
         {/* Left: Icon + Titles */}
-        <Stack direction="row" alignItems="center" spacing={2}>
-          <Avatar sx={{ bgcolor: "#2563eb", width: 40, height: 40 }}>
+        <Box
+          component="img"
+          src="skillmind-ai-assistant.png"
+          alt="SkillMind Logo"
+          sx={{ display: { xs: "none", md: "flex" }, width: "220px" }}
+        />
+        {/* <Stack direction="row" alignItems="center" spacing={2}> */}
+        {/* <Avatar sx={{ bgcolor: "#2563eb", width: 40, height: 40 }}>
             <BusinessCenterIcon />
           </Avatar>
           <Box>
@@ -40,11 +46,11 @@ const SkillMindAppBar = () => {
             <Typography variant="caption" color="text.secondary">
               Finding your perfect career match
             </Typography>
-          </Box>
-        </Stack>
+          </Box> */}
+        {/* </Stack> */}
 
         {/* Right: Step + ProgressBar + Menu */}
-        <Stack direction="row" alignItems="center" spacing={2}>
+        {/* <Stack direction="row" alignItems="center" spacing={2}>
           <Typography variant="body2" fontWeight={500}>
             Question {currentStep} of {totalSteps}
           </Typography>
@@ -65,7 +71,7 @@ const SkillMindAppBar = () => {
           <IconButton>
             <MenuIcon />
           </IconButton>
-        </Stack>
+        </Stack> */}
       </Toolbar>
     </Paper>
   );

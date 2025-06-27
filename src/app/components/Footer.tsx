@@ -16,8 +16,16 @@ function Footer() {
   return (
     <Box sx={{ backgroundColor: "#212121", color: "#fff", py: 6 }}>
       <Container>
-        <Grid container spacing={2}>
-          <Grid size={{ xs: 12, md: 8 }}>
+        <Grid container spacing={3} mb={2}>
+          <Grid
+            size={{ xs: 12, md: 8 }}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              mb: 2,
+              alignItems: { xs: "center", md: "flex-start" },
+            }}
+          >
             <Box
               component="img"
               src="./skillmind-logo-white.png"
@@ -37,7 +45,7 @@ function Footer() {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "flex-end",
+                alignItems: { xs: "center", md: "flex-end" },
               }}
             >
               <Typography variant="h5">Quick Links</Typography>

@@ -3,9 +3,17 @@
 import * as React from "react";
 //import { useRouter } from "next/navigation";
 import ResultCard from "@/components/ResultCard";
-import { Box, Container, Grid, Paper,Typography, Button, Stack, } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  Paper,
+  Typography,
+  Button,
+  Stack,
+} from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import AssessmentProgress from "../components/AssessmentProgress";
+// import AssessmentProgress from "../components/AssessmentProgress";
 import AssessmentTips from "../components/AssessmentTips";
 import NeedHelpBox from "../components/NeedHelpBox";
 import AIInsightsBox from "../components/AIInsightsBox";
@@ -138,13 +146,10 @@ export default function ChatPage() {
         botMessage?.content?.includes("{") ||
         botMessage?.content?.includes("[")
       ) {
-      
         const jobMatches = extractJsonFromText(botMessage.content);
         console.log("🔍 jobMatches:", jobMatches);
         if (jobMatches) {
-        
           try {
-         
             console.log("✅ Formatted jobMatches:", JSON.stringify(jobMatches));
 
             const matchRes = await fetch(MATCH_API, {
@@ -172,102 +177,119 @@ export default function ChatPage() {
 
   return (
     <Box>
-    <Container>
-      <Grid container spacing={2} mt={4}>
-        <Grid size={{ xs: 12, md: 8 }}>
-          <Box>
-            <Paper>
-              {/* <ChatScreen messages={messages} options={options}/> */}
-              <Box
-                sx={{
-                  maxWidth: 600,
-                  margin: "auto",
-                  padding: 2,
-                  minHeight: "100vh",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 2,
-                }}
-              >
-                { messages.map((msg, i) => (
-                  msg.role !== "user" ? (<Box sx={{ display: "flex", flexDirection: "row" }} key={i}>
-                    <Box component="img" src="chatbot.png" alt="chat bot"
-                      sx={{
-                        width: "40px",
-                        height: "40px",
-                        mr: 2,
-                      }}
-                    />
-                    <Paper
-                      variant="outlined"
-                      sx={{
-                        p: 2,
-                        borderRadius: 3,
-                        backgroundColor: "#ffffff",
-                      }}
-                    >
-                      <Stack direction="row" spacing={2}>
-                        <Box>
-                          
-                          <Typography
-                            variant="subtitle1"
-                            sx={{ fontWeight: 600, mt: 1, color: "#0d47a1" }}
-                          >
-                           {msg.content}
-                          </Typography>
+      <Container>
+        <Grid container spacing={2} mt={4}>
+          <Grid size={{ xs: 12, md: 8 }}>
+            <Box>
+              <Paper>
+                {/* <ChatScreen messages={messages} options={options}/> */}
+                <Box
+                  sx={{
+                    maxWidth: 600,
+                    margin: "auto",
+                    padding: 2,
+                    minHeight: "100vh",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                  }}
+                >
+                  {messages.map((msg, i) =>
+                    msg.role !== "user" ? (
+                      <Box
+                        sx={{ display: "flex", flexDirection: "row" }}
+                        key={i}
+                      >
+                        <Box
+                          component="img"
+                          src="chatbot.png"
+                          alt="chat bot"
+                          sx={{
+                            width: "40px",
+                            height: "40px",
+                            mr: 2,
+                          }}
+                        />
+                        <Paper
+                          variant="outlined"
+                          sx={{
+                            p: 2,
+                            borderRadius: 3,
+                            backgroundColor: "#ffffff",
+                          }}
+                        >
+                          <Stack direction="row" spacing={2}>
+                            <Box>
+                              <Typography
+                                variant="subtitle1"
+                                sx={{
+                                  fontWeight: 600,
+                                  mt: 1,
+                                  color: "#0d47a1",
+                                }}
+                              >
+                                {msg.content}
+                              </Typography>
+                            </Box>
+                          </Stack>
+                        </Paper>
+                      </Box>
+                    ) : (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          mt: 2,
+                        }}
+                        key={i}
+                      >
+                        <Box
+                          sx={{
+                            bgcolor: "#1976d2",
+                            color: "#fff",
+                            px: 2,
+                            py: 1,
+                            borderRadius: "15px 0 15px 15px",
+                            maxWidth: "75%",
+                            fontSize: "0.875rem",
+                          }}
+                        >
+                          {msg.content}
                         </Box>
-                      </Stack>
-                    </Paper>
-                  </Box>):(<Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }} key={i}>
-                    <Box
-                      sx={{
-                        bgcolor: "#1976d2",
-                        color: "#fff",
-                        px: 2,
-                        py: 1,
-                        borderRadius: "15px 0 15px 15px",
-                        maxWidth: "75%",
-                        fontSize: "0.875rem",
-                      }}
-                    >
-                      {msg.content}
-                    </Box>
-                    <AccountCircleIcon sx={{ width: "40px", height: "40px" }} />
-                  </Box>)
+                        <AccountCircleIcon
+                          sx={{ width: "40px", height: "40px" }}
+                        />
+                      </Box>
+                    )
+                  )}
 
-                  
-                
-                ))}
-
-                { options.length > 0 && (
-                  <Stack spacing={1}>
-                    {options.map((opt, i) => (
-                      <Button
-                      variant="outlined"
-                      fullWidth
-                      sx={{
-                        borderRadius: 5,
-                        textTransform: "none",
-                        fontWeight: 500,
-                        backgroundColor: "#f0f6ff",
-                        borderColor: "#90caf9",
-                        "&:hover": {
-                          backgroundColor: "#e3f2fd",
-                        },
-                      }}
-                      key={i}
-                      onClick={() => handleSend(opt)}
-                    >
-                     
-                        {opt}
+                  {options.length > 0 && (
+                    <Stack spacing={1}>
+                      {options.map((opt, i) => (
+                        <Button
+                          variant="outlined"
+                          fullWidth
+                          sx={{
+                            borderRadius: 5,
+                            textTransform: "none",
+                            fontWeight: 500,
+                            backgroundColor: "#f0f6ff",
+                            borderColor: "#90caf9",
+                            "&:hover": {
+                              backgroundColor: "#e3f2fd",
+                            },
+                          }}
+                          key={i}
+                          onClick={() => handleSend(opt)}
+                        >
+                          {opt}
                         </Button>
-                    ))}
-                  </Stack>
-                )}
-                
-                
-              <div className="max-w-2xl mx-auto p-4">
-                {/* <div className="bg-gray-50 p-4 rounded-lg shadow-sm mb-4 h-[300px] overflow-y-auto">
+                      ))}
+                    </Stack>
+                  )}
+
+                  <div className="max-w-2xl mx-auto p-4">
+                    {/* <div className="bg-gray-50 p-4 rounded-lg shadow-sm mb-4 h-[300px] overflow-y-auto">
                   {messages.map((msg, i) => (
                     <div key={i} className="mb-2 whitespace-pre-wrap">
                       <strong>{msg.role === "user" ? "You" : "SkillMind"}:</strong>{" "}
@@ -275,7 +297,7 @@ export default function ChatPage() {
                     </div>
                   ))}
                 </div> */}
-{/* 
+                    {/* 
                 {options.length > 0 && (
                   <div className="flex flex-col gap-2 mb-4">
                     {options.map((opt, i) => (
@@ -290,7 +312,7 @@ export default function ChatPage() {
                   </div>
                 )} */}
 
-                {/* <div className="flex gap-2">
+                    {/* <div className="flex gap-2">
                   <input
                     value={input}
                     onChange={e => setInput(e.target.value)}
@@ -306,42 +328,37 @@ export default function ChatPage() {
                   </button>
                 </div> */}
 
-                {results.length > 0 && (
-                  <div className="mt-8">
-                    <h2 className="text-xl font-semibold mb-4 text-blue-700">
-                      🎯 Best Match Jobs & Courses
-                    </h2>
-                    {results.map((res, i) => (
-                      <ResultCard key={i} result={res} />
-                    ))}
+                    {results.length > 0 && (
+                      <div className="mt-8">
+                        <h2 className="text-xl font-semibold mb-4 text-blue-700">
+                          🎯 Best Match Jobs & Courses
+                        </h2>
+                        {results.map((res, i) => (
+                          <ResultCard key={i} result={res} />
+                        ))}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-                
-              </Box>
-              
-            </Paper>
-          </Box>
+                </Box>
+              </Paper>
+            </Box>
+          </Grid>
+          <Grid size={{ xs: 12, md: 4 }}>
+            <Box
+              sx={{
+                "& > *": {
+                  mb: "20px",
+                },
+              }}
+            >
+              {/* <AssessmentProgress /> */}
+              <AssessmentTips />
+              <NeedHelpBox />
+              <AIInsightsBox />
+            </Box>
+          </Grid>
         </Grid>
-        <Grid size={{ xs: 12, md: 4 }}>
-          <Box
-            sx={{
-              "& > *": {
-                mb: "20px",
-              },
-            }}
-          >
-            <AssessmentProgress />
-            <AssessmentTips />
-            <NeedHelpBox />
-            <AIInsightsBox />
-          </Box>
-        </Grid>
-      </Grid>
-    </Container>
-  </Box>
-
-
-    
+      </Container>
+    </Box>
   );
 }

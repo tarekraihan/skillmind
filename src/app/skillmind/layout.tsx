@@ -2,6 +2,7 @@
 import React from "react";
 import SkillMindAppBar from "../components/SkillMindAppBar";
 import { Box, Container } from "@mui/material";
+import Footer from "../components/Footer";
 
 export default function CustomLayout({
   children,
@@ -21,15 +22,7 @@ export default function CustomLayout({
 
         <main style={{ padding: "2rem" }}>{children}</main>
 
-        <footer
-          style={{
-            background: "#f1f5f9",
-            padding: "1rem",
-            textAlign: "center",
-          }}
-        >
-          Custom Footer
-        </footer>
+        <Footer />
       </body>
     </html>
   );

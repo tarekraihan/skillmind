@@ -49,9 +49,7 @@ function ResponsiveAppBar() {
             component="img"
             src="skillmind-logo.png"
             alt="Hero Image"
-            sx={{
-              width: "200px",
-            }}
+            sx={{ display: { xs: "none", md: "flex" }, width: "180px" }}
           />
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -92,6 +90,8 @@ function ResponsiveAppBar() {
               mr: 1,
               color: "#fff",
               background: "#1976d2",
+              fontFamily: "Inter",
+              fontWeight: 700,
             }}
           >
             S
@@ -106,8 +106,8 @@ function ResponsiveAppBar() {
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
+              fontFamily: "Inter",
+              fontWeight: "bold",
               letterSpacing: ".2rem",
               color: "#222",
               textDecoration: "none",
