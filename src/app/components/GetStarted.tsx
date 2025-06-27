@@ -9,7 +9,12 @@ function GetStarted() {
       <Container>
         <Typography
           variant="h3"
-          sx={{ fontFamily: "Inter", fontWeight: 600, textAlign: "center" }}
+          sx={{
+            fontFamily: "Inter",
+            fontWeight: 600,
+            textAlign: "center",
+            fontSize: "2rem",
+          }}
           gutterBottom
         >
           Ready to Get Started?

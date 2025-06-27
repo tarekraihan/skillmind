@@ -14,7 +14,12 @@ export default function FAQ() {
         <Typography
           variant="h3"
           gutterBottom
-          sx={{ fontFamily: "Inter", fontWeight: 600, textAlign: "center" }}
+          sx={{
+            fontFamily: "Inter",
+            fontWeight: 600,
+            textAlign: "center",
+            fontSize: "2rem",
+          }}
         >
           Frequently Asked Questions
         </Typography>

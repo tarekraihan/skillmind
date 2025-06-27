@@ -73,7 +73,12 @@ export default function Home() {
           <Typography
             variant="h3"
             gutterBottom
-            sx={{ fontFamily: "Inter", fontWeight: 600, textAlign: "center" }}
+            sx={{
+              fontFamily: "Inter",
+              fontWeight: 600,
+              textAlign: "center",
+              fontSize: "2rem",
+            }}
           >
             Why SkillMind
           </Typography>
@@ -132,7 +137,12 @@ export default function Home() {
           <Typography
             variant="h3"
             gutterBottom
-            sx={{ fontFamily: "Inter", fontWeight: 600, textAlign: "center" }}
+            sx={{
+              fontFamily: "Inter",
+              fontWeight: 600,
+              textAlign: "center",
+              fontSize: "2rem",
+            }}
           >
             How It Works
           </Typography>
@@ -213,7 +223,12 @@ export default function Home() {
         <Typography
           variant="h3"
           gutterBottom
-          sx={{ fontFamily: "Inter", fontWeight: 600, textAlign: "center" }}
+          sx={{
+            fontFamily: "Inter",
+            fontWeight: 600,
+            textAlign: "center",
+            fontSize: "2rem",
+          }}
         >
           Courses Offered By
         </Typography>
@@ -294,7 +309,12 @@ export default function Home() {
           <Typography
             variant="h3"
             gutterBottom
-            sx={{ fontFamily: "Inter", fontWeight: 600, textAlign: "center" }}
+            sx={{
+              fontFamily: "Inter",
+              fontWeight: 600,
+              textAlign: "center",
+              fontSize: "2rem",
+            }}
           >
             Meet the People Behind SkillMind
           </Typography>
