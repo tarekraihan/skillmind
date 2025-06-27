@@ -17,13 +17,13 @@ function Footer() {
     <Box sx={{ backgroundColor: "#212121", color: "#fff", py: 6 }}>
       <Container>
         <Grid container spacing={2}>
-          <Grid sx={{ xs: 12, md: 8 }}>
+          <Grid size={{ xs: 12, md: 8 }}>
             <Box
               component="img"
               src="./skillmind-logo-white.png"
               alt="Log"
               sx={{
-                width: "200px",
+                width: "150px",
                 mb: 2,
               }}
             />
@@ -32,12 +32,12 @@ function Footer() {
               fit and education to get there.
             </Typography>
           </Grid>
-          <Grid sx={{ xs: 12, md: 4 }}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "right",
+                alignItems: "flex-end",
               }}
             >
               <Typography variant="h5">Quick Links</Typography>

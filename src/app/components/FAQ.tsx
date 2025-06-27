@@ -11,7 +11,11 @@ export default function FAQ() {
   return (
     <Box sx={{ py: 10 }}>
       <Container>
-        <Typography variant="h2" align="center" gutterBottom fontWeight="500">
+        <Typography
+          variant="h3"
+          gutterBottom
+          sx={{ fontFamily: "Inter", fontWeight: 600, textAlign: "center" }}
+        >
           Frequently Asked Questions
         </Typography>
         <Typography variant="body1" sx={{ textAlign: "center", mb: 2 }}>
@@ -24,11 +28,14 @@ export default function FAQ() {
               aria-controls="panel1-content"
               id="panel1-header"
             >
-              <Typography component="span">
+              <Typography
+                component="span"
+                sx={{ fontFamily: "Inter", fontWeight: 600 }}
+              >
                 How is this different from a personality test?
               </Typography>
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails sx={{ fontFamily: "Inter" }}>
               Unlike generic personality tests, we use the scientifically-backed
               OCEAN model combined with AI conversations to understand not just
               who you are, but what careers will actually fulfill you and match
@@ -41,7 +48,10 @@ export default function FAQ() {
               aria-controls="panel2-content"
               id="panel2-header"
             >
-              <Typography component="span">
+              <Typography
+                component="span"
+                sx={{ fontFamily: "Inter", fontWeight: 600 }}
+              >
                 Do I need a GED to use this?
               </Typography>
             </AccordionSummary>
@@ -57,7 +67,10 @@ export default function FAQ() {
               aria-controls="panel3-content"
               id="panel3-header"
             >
-              <Typography component="span">
+              <Typography
+                component="span"
+                sx={{ fontFamily: "Inter", fontWeight: 600 }}
+              >
                 What happens after I get matched?
               </Typography>
             </AccordionSummary>
@@ -73,7 +86,12 @@ export default function FAQ() {
               aria-controls="panel3-content"
               id="panel3-header"
             >
-              <Typography component="span">Can I try it for free?</Typography>
+              <Typography
+                component="span"
+                sx={{ fontFamily: "Inter", fontWeight: 600 }}
+              >
+                Can I try it for free?
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
               Yes! We offer a free initial assessment. Book a demo to experience
@@ -87,7 +105,10 @@ export default function FAQ() {
               aria-controls="panel3-content"
               id="panel3-header"
             >
-              <Typography component="span">
+              <Typography
+                component="span"
+                sx={{ fontFamily: "Inter", fontWeight: 600 }}
+              >
                 Can I use this for workforce training programs?
               </Typography>
             </AccordionSummary>

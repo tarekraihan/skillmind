@@ -6,15 +6,16 @@ import {
   Grid,
   Paper,
   Stack,
-  Button,} from "@mui/material";
-  import Link from 'next/link';
+  Button,
+} from "@mui/material";
+import Link from "next/link";
 import FAQ from "./components/FAQ";
 import GetStarted from "./components/GetStarted";
 import Footer from "./components/Footer";
 
 export default function Home() {
   return (
-    <Box sx={{ fontFamily: "Inter, sans-serif" }}>
+    <Box sx={{ fontFamily: "Inter" }}>
       {/* Header */}
       <ResponsiveAppBar />
 
@@ -28,20 +29,24 @@ export default function Home() {
                   variant="h1"
                   style={{
                     fontWeight: "bold",
-                    fontFamily: "Inter",
+
                     fontSize: "50px",
                   }}
                 >
                   Unlock Your Teams Potential
                 </Typography>
-                <Typography variant="subtitle1" gutterBottom>
+                <Typography
+                  variant="subtitle1"
+                  gutterBottom
+                  sx={{ fontFamily: "Inter", mt: 3 }}
+                >
                   AI-powered guidance to help individuals discover the best job
                   fit and the education that gets them there.
                 </Typography>
-                <Stack direction="row" spacing={2}>
-                <Link href="/skillmind">
-                  <Button variant="contained">Book a Demo</Button>
-                </Link>
+                <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
+                  <Link href="/skillmind">
+                    <Button variant="contained">Book a Demo</Button>
+                  </Link>
                   <Button size="medium">How it works</Button>
                 </Stack>
               </Box>
@@ -65,10 +70,17 @@ export default function Home() {
       {/* Why SkillMind */}
       <Box sx={{ py: 10 }}>
         <Container>
-          <Typography variant="h2" align="center" gutterBottom fontWeight="500">
+          <Typography
+            variant="h3"
+            gutterBottom
+            sx={{ fontFamily: "Inter", fontWeight: 600, textAlign: "center" }}
+          >
             Why SkillMind
           </Typography>
-          <Typography variant="body1" sx={{ textAlign: "center", mb: 2 }}>
+          <Typography
+            variant="body1"
+            sx={{ fontFamily: "Inter", textAlign: "center", mb: 2 }}
+          >
             We are different from generic career tests. Here is how we help you
             find your true calling.
           </Typography>
@@ -80,11 +92,24 @@ export default function Home() {
               "Designed for Workforce Readiness",
             ].map((title, i) => (
               <Grid size={{ xs: 12, md: 6 }} key={i}>
-                <Paper sx={{ p: 3, height: "100%" }}>
-                  <Typography variant="h6" gutterBottom>
+                <Paper
+                  sx={{
+                    p: 3,
+                    m: 1,
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    sx={{ fontFamily: "Inter", fontWeight: 600 }}
+                  >
                     {title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ fontFamily: "Inter" }}
+                  >
                     {title === "Personalized, Not Generic" &&
                       "Uses OCEAN psychology model to assess strengths and match to career paths."}
                     {title === "All That Understands People" &&
@@ -104,10 +129,17 @@ export default function Home() {
       {/* How It Works */}
       <Box sx={{ py: 10, backgroundColor: "#f9f9f9" }}>
         <Container>
-          <Typography variant="h2" align="center" gutterBottom fontWeight="500">
+          <Typography
+            variant="h3"
+            gutterBottom
+            sx={{ fontFamily: "Inter", fontWeight: 600, textAlign: "center" }}
+          >
             How It Works
           </Typography>
-          <Typography variant="body1" sx={{ textAlign: "center", mb: 2 }}>
+          <Typography
+            variant="body1"
+            sx={{ textAlign: "center", mb: 2, fontFamily: "Inter" }}
+          >
             We use AI + psychology to find your best-fit career.
           </Typography>
           <Grid container spacing={2} justifyContent="center" mt={4}>
@@ -141,23 +173,32 @@ export default function Home() {
                     alignItems: "center",
                   }}
                 >
-                  <Typography
-                    variant="h4"
+                  <Box
                     sx={{
+                      width: 50,
+                      height: 50,
                       borderRadius: "50%",
-                      width: "50px",
-                      height: "50px",
-                      p: 1,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#fff",
+                      fontWeight: 500,
                     }}
                     bgcolor={bgColor}
-                    color="white"
                   >
-                    {step}
-                  </Typography>
-                  <Typography variant="h6" mt={1}>
+                    <Typography variant="body1" align="center">
+                      {step}
+                    </Typography>
+                  </Box>
+
+                  <Typography variant="h6" mt={1} sx={{ fontFamily: "Inter" }}>
                     {title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ fontFamily: "Inter" }}
+                  >
                     {desc}
                   </Typography>
                 </Box>
@@ -169,10 +210,17 @@ export default function Home() {
 
       {/* Courses Offered By */}
       <Container sx={{ py: 10 }}>
-        <Typography variant="h2" align="center" gutterBottom fontWeight="500">
+        <Typography
+          variant="h3"
+          gutterBottom
+          sx={{ fontFamily: "Inter", fontWeight: 600, textAlign: "center" }}
+        >
           Courses Offered By
         </Typography>
-        <Typography variant="body1" sx={{ textAlign: "center", mb: 2 }}>
+        <Typography
+          variant="body1"
+          sx={{ textAlign: "center", mb: 2, fontFamily: "Inter" }}
+        >
           Partnered with leading community colleges across Arizona
         </Typography>
         <Grid container spacing={2} justifyContent="center" mt={4}>
@@ -210,21 +258,29 @@ export default function Home() {
                   alignItems: "center",
                 }}
               >
-                <Typography
-                  variant="h5"
+                <Box
                   sx={{
+                    width: 100,
+                    height: 50,
                     borderRadius: "10%",
-                    width: "100px",
-                    height: "50px",
-                    p: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#fff",
+                    backgroundColor: "rgba(0, 0, 0, 0.38)",
+                    fontWeight: 500,
                   }}
-                  bgcolor="text.disabled"
-                  color="#fff"
                 >
-                  {title}
-                </Typography>
+                  <Typography variant="body1" align="center">
+                    {title}
+                  </Typography>
+                </Box>
 
-                <Typography variant="body2" color="text.secondary">
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ fontFamily: "Inter", mt: 1 }}
+                >
                   {desc}
                 </Typography>
               </Box>
@@ -235,10 +291,17 @@ export default function Home() {
       {/* Meet the People Behind SkillMind*/}
       <Box sx={{ py: 10, backgroundColor: "#f9f9f9" }}>
         <Container>
-          <Typography variant="h2" align="center" gutterBottom fontWeight="500">
+          <Typography
+            variant="h3"
+            gutterBottom
+            sx={{ fontFamily: "Inter", fontWeight: 600, textAlign: "center" }}
+          >
             Meet the People Behind SkillMind
           </Typography>
-          <Typography variant="body1" sx={{ textAlign: "center", mb: 2 }}>
+          <Typography
+            variant="body1"
+            sx={{ textAlign: "center", mb: 2, fontFamily: "Inter" }}
+          >
             We believe in access, equity, and personalized pathways to
             opportunity.
           </Typography>
@@ -267,7 +330,7 @@ export default function Home() {
               },
             ].map(({ step, title, desc, bgColor, post }) => (
               <Grid size={{ xs: 12, md: 4 }} key={step}>
-                <Paper sx={{ p: 2, height: "260px" }}>
+                <Paper sx={{ p: 3, height: "240px" }}>
                   <Box
                     textAlign="center"
                     sx={{
@@ -277,27 +340,39 @@ export default function Home() {
                       alignItems: "center",
                     }}
                   >
-                    <Typography
-                      variant="h4"
+                    <Box
                       sx={{
+                        width: 60,
+                        height: 60,
                         borderRadius: "50%",
-                        width: "60px",
-                        height: "60px",
-                        p: 1.6,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "#fff",
+                        fontWeight: 500,
                       }}
                       bgcolor={bgColor}
-                      color="white"
                     >
-                      {step}
-                    </Typography>
-                    <Typography variant="h5" mt={1}>
+                      <Typography variant="body1">{step}</Typography>
+                    </Box>
+                    <Typography
+                      variant="h5"
+                      sx={{ fontFamily: "Inter", textAlign: "center", mt: 1 }}
+                    >
                       {title}
                     </Typography>
-                    <Typography variant="body1" mt={1}>
+                    <Typography
+                      variant="body1"
+                      sx={{ fontFamily: "Inter", textAlign: "center", mt: 1 }}
+                    >
                       {post}
                     </Typography>
 
-                    <Typography variant="body2" color="text.secondary" mt={1}>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ fontFamily: "Inter", textAlign: "center", mt: 1 }}
+                    >
                       {desc}
                     </Typography>
                   </Box>

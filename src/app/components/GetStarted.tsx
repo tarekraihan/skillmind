@@ -1,9 +1,4 @@
-import {
-  Box,
-  Container,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import SendMessage from "./SendMessage";
 import BookADemoCard from "./BookADemoCard";
@@ -12,7 +7,11 @@ function GetStarted() {
   return (
     <Box sx={{ py: 10, backgroundColor: "#f9f9f9" }}>
       <Container>
-        <Typography variant="h2" align="center" gutterBottom fontWeight="500">
+        <Typography
+          variant="h3"
+          sx={{ fontFamily: "Inter", fontWeight: 600, textAlign: "center" }}
+          gutterBottom
+        >
           Ready to Get Started?
         </Typography>
         <Typography variant="body1" sx={{ textAlign: "center", mb: 2 }}>
