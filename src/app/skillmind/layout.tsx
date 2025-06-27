@@ -1,7 +1,7 @@
 // app/custom/layout.tsx
 import React from "react";
-import SkillMindAppBar from "../components/SkillMindAppBar";
-import { Box, Container } from "@mui/material";
+import ResponsiveAppBar from "../components/ResponsiveAppBar";
+import { Box } from "@mui/material";
 import Footer from "../components/Footer";
 
 export default function CustomLayout({
@@ -14,9 +14,7 @@ export default function CustomLayout({
       <body>
         <header style={{ padding: "1rem" }}>
           <Box>
-            <Container>
-              <SkillMindAppBar />
-            </Container>
+            <ResponsiveAppBar />
           </Box>
         </header>
 

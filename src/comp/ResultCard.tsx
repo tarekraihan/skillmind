@@ -10,6 +10,7 @@ import {
   Stack,
   Button,
   Avatar,
+  Grid,
 } from "@mui/material";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
@@ -54,8 +55,14 @@ export default function ResultCard({ result }: ResultProps) {
           alignItems="center"
         >
           <Stack direction="row" spacing={1} alignItems="center">
-            <Avatar sx={{ bgcolor: "#1E40AF", width: 36, height: 36 }}>
-              <WorkOutlineIcon fontSize="small" />
+            <Avatar
+              sx={{
+                backgroundColor: result.matchScore > 70 ? "#22C55E" : "#F59E0B",
+                width: 36,
+                height: 36,
+              }}
+            >
+              <SchoolIcon fontSize="small" />
             </Avatar>
             <Typography variant="h6" fontWeight="bold">
               {result.jobTitle}
@@ -64,7 +71,7 @@ export default function ResultCard({ result }: ResultProps) {
           <Chip
             label={`${result.matchScore}% Match`}
             sx={{
-              backgroundColor: "#22C55E",
+              backgroundColor: result.matchScore > 70 ? "#22C55E" : "#F59E0B",
               color: "#fff",
               fontWeight: 500,
               px: 1.5,
@@ -80,7 +87,7 @@ export default function ResultCard({ result }: ResultProps) {
           <Typography
             fontWeight="bold"
             color="warning.main"
-            sx={{ display: "flex", alignItems: "center" }}
+            sx={{ display: "flex", alignItems: "center", fontFamily: "Inter" }}
           >
             <EmojiObjectsIcon sx={{ mr: 1 }} fontSize="small" />
             Why This Job:
@@ -94,7 +101,7 @@ export default function ResultCard({ result }: ResultProps) {
         <Box mt={3}>
           <Typography
             fontWeight="bold"
-            sx={{ display: "flex", alignItems: "center" }}
+            sx={{ display: "flex", alignItems: "center", fontFamily: "Inter" }}
           >
             <WorkOutlineIcon sx={{ mr: 1 }} fontSize="small" />
             What You’ll Do:
@@ -114,14 +121,14 @@ export default function ResultCard({ result }: ResultProps) {
               sx={{
                 backgroundColor: label.includes("Openness")
                   ? "#E0F2FE"
-                  : label.includes("Agreeableness")
+                  : label.includes("Conscientiousness")
                   ? "#DCFCE7"
                   : label.includes("GED")
                   ? "#FEF3C7"
                   : "#F3F4F6",
                 color: label.includes("Openness")
                   ? "#0284C7"
-                  : label.includes("Agreeableness")
+                  : label.includes("Conscientiousness")
                   ? "#16A34A"
                   : label.includes("GED")
                   ? "#CA8A04"
@@ -142,40 +149,59 @@ export default function ResultCard({ result }: ResultProps) {
             backgroundColor: "#EFF6FF",
           }}
         >
-          <Typography
-            fontWeight="bold"
-            sx={{ color: "#1D4ED8", display: "flex", alignItems: "center" }}
-          >
-            <SchoolIcon fontSize="small" sx={{ mr: 1 }} />
-            Recommended Training:
-          </Typography>
-          <Typography fontWeight="bold" mt={1}>
-            {result.match.college}
-          </Typography>
-          <Typography fontSize={14} color="text.secondary">
-            {result.match.program}
-          </Typography>
-          <Typography fontSize={12} color="text.disabled">
-            Duration: {result.match.duration}
-          </Typography>
-
-          <Button
-            variant="contained"
-            size="small"
-            href={result.match.link}
-            target="_blank"
-            sx={{
-              mt: 2,
-              backgroundColor: "#3B82F6",
-              "&:hover": { backgroundColor: "#2563EB" },
-              textTransform: "none",
-              fontSize: 14,
-              fontWeight: 500,
-              borderRadius: 2,
-            }}
-          >
-            View Course
-          </Button>
+          <Grid container spacing={2}>
+            <Grid size={{ xs: 12, md: 8 }}>
+              <Typography
+                fontWeight="bold"
+                sx={{
+                  color: "#1E40AF",
+                  display: "flex",
+                  alignItems: "center",
+                  fontFamily: "Inter",
+                }}
+              >
+                <SchoolIcon fontSize="small" sx={{ mr: 1 }} />
+                Recommended Training:
+              </Typography>
+              <Typography fontWeight="bold" mt={1}>
+                {result.match.college}
+              </Typography>
+              <Typography fontSize={14} color="text.secondary">
+                {result.match.program}
+              </Typography>
+              <Typography fontSize={12} color="text.disabled">
+                Duration: {result.match.duration}
+              </Typography>
+            </Grid>
+            <Grid size={{ xs: 12, md: 4 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "end",
+                  height: "100%",
+                }}
+              >
+                <Button
+                  variant="contained"
+                  size="small"
+                  href={result.match.link}
+                  target="_blank"
+                  sx={{
+                    mt: 2,
+                    backgroundColor: "#3B82F6",
+                    "&:hover": { backgroundColor: "#2563EB" },
+                    textTransform: "none",
+                    fontSize: 14,
+                    fontWeight: 500,
+                    borderRadius: 2,
+                  }}
+                >
+                  View Course
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
         </Box>
       </CardContent>
     </Card>

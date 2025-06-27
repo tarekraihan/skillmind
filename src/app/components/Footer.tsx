@@ -14,7 +14,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 
 function Footer() {
   return (
-    <Box sx={{ backgroundColor: "#212121", color: "#fff", py: 6 }}>
+    <Box sx={{ backgroundColor: "#334155", color: "#fff", py: 6 }}>
       <Container>
         <Grid container spacing={3} mb={2}>
           <Grid

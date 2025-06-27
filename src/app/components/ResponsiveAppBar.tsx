@@ -11,6 +11,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Badge from "@mui/material/Badge";
+import Link from "next/link";
 
 const pages = [
   "Home",
@@ -45,12 +46,15 @@ function ResponsiveAppBar() {
     >
       <Container maxWidth="lg">
         <Toolbar disableGutters>
-          <Box
-            component="img"
-            src="skillmind-logo.png"
-            alt="Hero Image"
-            sx={{ display: { xs: "none", md: "flex" }, width: "180px" }}
-          />
+          <Link href="/">
+            <Box
+              component="img"
+              src="skillmind-logo.png"
+              alt="Hero Image"
+              sx={{ display: { xs: "none", md: "flex" }, width: "180px" }}
+            />
+          </Link>
+
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -135,7 +139,9 @@ function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-            <Button variant="contained">Book a Demo</Button>
+            <Link href="/skillmind">
+              <Button variant="contained">Book a Demo</Button>
+            </Link>
           </Box>
         </Toolbar>
       </Container>

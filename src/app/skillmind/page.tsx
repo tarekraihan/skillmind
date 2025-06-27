@@ -2,9 +2,10 @@
 
 import * as React from "react";
 //import { useRouter } from "next/navigation";
-import ResultCard from "@/components/ResultCard";
+import JobMatchCard from "../components/JobMatchCard";
 // import JobMatchCard, { JobMatch } from '../components/JobMatchCard';
 import ResultHeading from "../components/ResultHeading";
+import WhatsNextActions from "../components/WhatNextAction";
 import {
   Box,
   Container,
@@ -13,7 +14,11 @@ import {
   Typography,
   Button,
   Stack,
+  TextField,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // import AssessmentProgress from "../components/AssessmentProgress";
 import AssessmentTips from "../components/AssessmentTips";
@@ -26,7 +31,7 @@ export default function ChatPage() {
   >([]);
   const [input, setInput] = React.useState("");
   const [options, setOptions] = React.useState<string[]>([]);
-  // const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [results, setResults] = React.useState<
     {
       jobTitle: string;
@@ -52,7 +57,7 @@ export default function ChatPage() {
     if (messages.length === 0) {
       const greeting = {
         role: "assistant",
-        content: `👋 Welcome to SkillMind! Let's begin:\n\nA. I enjoy trying new things\nB. I prefer familiar routines\nC. I'm a mix of both`,
+        content: `👋 Welcome to SkillMind! Let's begin:How do you feel about new experiences?\n\nA. I enjoy trying new things\nB. I prefer familiar routines\nC. I'm a mix of both`,
       };
       setMessages([greeting]);
       setOptions([
@@ -115,7 +120,7 @@ export default function ChatPage() {
     setMessages(updatedMessages);
     setInput("");
     setOptions([]);
-    // setLoading(true);
+    setLoading(true);
 
     try {
       const response = await fetch(API_URL, {
@@ -174,35 +179,187 @@ export default function ChatPage() {
       console.error("❌ Chat error:", error);
     }
 
-    // setLoading(false);
+    setLoading(false);
   };
 
   return (
-    <Box>
+    <>
       <Container>
-        <Grid container spacing={2} mt={4}>
-          <Grid size={{ xs: 12, md: 8 }}>
-            <Box>
-              <Paper>
-                {/* <ChatScreen messages={messages} options={options}/> */}
-                <Box
-                  sx={{
-                    maxWidth: 600,
-                    margin: "auto",
-                    padding: 2,
-                    minHeight: "100vh",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 2,
-                  }}
-                >
-                  {results.length < 1 &&
-                    messages.map((msg, i) =>
-                      msg.role !== "user" ? (
+        {results.length < 1 && (
+          <Grid container spacing={2} mt={4}>
+            <Grid size={{ xs: 12, md: 8 }}>
+              <Box>
+                <Paper>
+                  {/* <ChatScreen messages={messages} options={options}/> */}
+                  <Box
+                    sx={{
+                      maxWidth: "100%",
+                      margin: "auto",
+                      padding: 4,
+                      minHeight: "100vh",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 2,
+                    }}
+                  >
+                    {results.length < 1 &&
+                      messages.map((msg, i) =>
+                        msg.role !== "user" ? (
+                          <Box
+                            sx={{ display: "flex", flexDirection: "row" }}
+                            key={i}
+                          >
+                            <Box
+                              component="img"
+                              src="chatbot.png"
+                              alt="chat bot"
+                              sx={{
+                                width: "40px",
+                                height: "40px",
+                                mr: 2,
+                              }}
+                            />
+                            <Paper
+                              variant="outlined"
+                              sx={{
+                                p: 2,
+                                borderRadius: "0 15px 15px 15px",
+                                backgroundColor: "#ffffff",
+                              }}
+                            >
+                              <Stack direction="row" spacing={2}>
+                                <Box>
+                                  <Typography
+                                    variant="subtitle1"
+                                    sx={{
+                                      fontWeight: 600,
+                                      mt: 1,
+                                      color: "#0d47a1",
+                                      fontFamily: "Inter",
+                                    }}
+                                  >
+                                    {msg.content.split("\n\n")[0]}
+                                  </Typography>
+                                  <Typography
+                                    variant="subtitle1"
+                                    sx={{
+                                      fontWeight: 400,
+                                      mt: 1,
+                                      color: "#0d47a1",
+                                      fontFamily: "Inter",
+                                    }}
+                                  >
+                                    {msg.content.split("\n\n")[1]}
+                                  </Typography>
+                                </Box>
+                              </Stack>
+                            </Paper>
+                          </Box>
+                        ) : (
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "flex-end",
+                              mt: 2,
+                            }}
+                            key={i}
+                          >
+                            <Box
+                              sx={{
+                                bgcolor: "#1976d2",
+                                color: "#fff",
+                                px: 2,
+                                py: 1,
+                                borderRadius: "15px 0 15px 15px",
+                                maxWidth: "75%",
+                                fontSize: "0.875rem",
+                                fontFamily: "Inter",
+                              }}
+                            >
+                              {msg.content}
+                            </Box>
+                            <AccountCircleIcon
+                              sx={{
+                                width: "40px",
+                                height: "40px",
+                                color: "#64748B",
+                              }}
+                            />
+                          </Box>
+                        )
+                      )}
+                    {options.length > 0 && (
+                      <Stack spacing={1}>
+                        {options.map((opt, i) => (
+                          <Button
+                            variant="outlined"
+                            fullWidth
+                            sx={{
+                              borderRadius: 5,
+                              textTransform: "none",
+                              fontFamily: "Inter",
+                              fontWeight: 500,
+                              backgroundColor: "#f0f6ff",
+                              borderColor: "#90caf9",
+                              "&:hover": {
+                                backgroundColor: "#e3f2fd",
+                              },
+                            }}
+                            key={i}
+                            onClick={() => handleSend(opt)}
+                          >
+                            {opt}
+                          </Button>
+                        ))}
                         <Box
-                          sx={{ display: "flex", flexDirection: "row" }}
-                          key={i}
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            py: 1,
+                          }}
                         >
+                          <TextField
+                            fullWidth
+                            variant="outlined"
+                            placeholder="Type your answer here or click a suggestion above..."
+                            value={input}
+                            onChange={e => setInput(e.target.value)}
+                            onKeyPress={e => {
+                              if (e.key === "Enter") {
+                                handleSend();
+                              }
+                            }}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  <IconButton
+                                    onClick={() => handleSend()}
+                                    sx={{
+                                      color: "#fff",
+                                      backgroundColor: "#3B82F6",
+                                    }}
+                                  >
+                                    <SendIcon />
+                                  </IconButton>
+                                </InputAdornment>
+                              ),
+                              sx: {
+                                borderRadius: "30px",
+                                backgroundColor: "#f8f9fb",
+                              },
+                            }}
+                          />
+                          <Box sx={{ mt: 1, fontSize: 12, color: "#6c757d" }}>
+                            You can click a suggestion above or type your own
+                            answer. Press Enter to send.
+                          </Box>
+                        </Box>
+                      </Stack>
+                    )}
+                    <Box>
+                      {results.length < 1 && loading && (
+                        <Box sx={{ display: "flex", flexDirection: "row" }}>
                           <Box
                             component="img"
                             src="chatbot.png"
@@ -217,7 +374,7 @@ export default function ChatPage() {
                             variant="outlined"
                             sx={{
                               p: 2,
-                              borderRadius: 3,
+                              borderRadius: "0 15px 15px 15px",
                               backgroundColor: "#ffffff",
                             }}
                           >
@@ -226,140 +383,54 @@ export default function ChatPage() {
                                 <Typography
                                   variant="subtitle1"
                                   sx={{
-                                    fontWeight: 600,
+                                    fontWeight: 400,
                                     mt: 1,
                                     color: "#0d47a1",
+                                    fontFamily: "Inter",
                                   }}
                                 >
-                                  {msg.content}
+                                  {"SkillMind is analyzing your responses ..."}
                                 </Typography>
                               </Box>
                             </Stack>
                           </Paper>
                         </Box>
-                      ) : (
-                        <Box
-                          sx={{
-                            display: "flex",
-                            justifyContent: "flex-end",
-                            mt: 2,
-                          }}
-                          key={i}
-                        >
-                          <Box
-                            sx={{
-                              bgcolor: "#1976d2",
-                              color: "#fff",
-                              px: 2,
-                              py: 1,
-                              borderRadius: "15px 0 15px 15px",
-                              maxWidth: "75%",
-                              fontSize: "0.875rem",
-                            }}
-                          >
-                            {msg.content}
-                          </Box>
-                          <AccountCircleIcon
-                            sx={{ width: "40px", height: "40px" }}
-                          />
-                        </Box>
-                      )
-                    )}
-
-                  {options.length > 0 && (
-                    <Stack spacing={1}>
-                      {options.map((opt, i) => (
-                        <Button
-                          variant="outlined"
-                          fullWidth
-                          sx={{
-                            borderRadius: 5,
-                            textTransform: "none",
-                            fontWeight: 500,
-                            backgroundColor: "#f0f6ff",
-                            borderColor: "#90caf9",
-                            "&:hover": {
-                              backgroundColor: "#e3f2fd",
-                            },
-                          }}
-                          key={i}
-                          onClick={() => handleSend(opt)}
-                        >
-                          {opt}
-                        </Button>
-                      ))}
-                    </Stack>
-                  )}
-
-                  <div className="max-w-2xl mx-auto p-4">
-                    {/* <div className="bg-gray-50 p-4 rounded-lg shadow-sm mb-4 h-[300px] overflow-y-auto">
-                  {messages.map((msg, i) => (
-                    <div key={i} className="mb-2 whitespace-pre-wrap">
-                      <strong>{msg.role === "user" ? "You" : "SkillMind"}:</strong>{" "}
-                      {msg.content}
-                    </div>
-                  ))}
-                </div> */}
-                    {/* 
-                {options.length > 0 && (
-                  <div className="flex flex-col gap-2 mb-4">
-                    {options.map((opt, i) => (
-                      <button
-                        key={i}
-                        onClick={() => handleSend(opt)}
-                        className="px-4 py-2 text-left bg-white border border-gray-300 rounded-md hover:bg-gray-100"
-                      >
-                        {opt}
-                      </button>
-                    ))}
-                  </div>
-                )} */}
-
-                    {/* <div className="flex gap-2">
-                  <input
-                    value={input}
-                    onChange={e => setInput(e.target.value)}
-                    placeholder="Type your message..."
-                    className="flex-1 px-4 py-2 border rounded-md"
-                  />
-                  <button
-                    onClick={() => handleSend()}
-                    disabled={loading}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-md"
-                  >
-                    {loading ? "..." : "Send"}
-                  </button>
-                </div> */}
-
-                    {results.length > 0 && (
-                      <Box>
-                        <ResultHeading />
-                        {results.map((res, i) => (
-                          <ResultCard key={i} result={res} />
-                        ))}
-                      </Box>
-                    )}
-                  </div>
-                </Box>
-              </Paper>
-            </Box>
+                      )}
+                    </Box>
+                  </Box>
+                </Paper>
+              </Box>
+            </Grid>
+            <Grid size={{ xs: 12, md: 4 }}>
+              <Box
+                sx={{
+                  "& > *": {
+                    mb: "20px",
+                  },
+                }}
+              >
+                {/* <AssessmentProgress /> */}
+                <AssessmentTips />
+                <NeedHelpBox />
+                <AIInsightsBox />
+              </Box>
+            </Grid>
           </Grid>
-          <Grid size={{ xs: 12, md: 4 }}>
-            <Box
-              sx={{
-                "& > *": {
-                  mb: "20px",
-                },
-              }}
-            >
-              {/* <AssessmentProgress /> */}
-              <AssessmentTips />
-              <NeedHelpBox />
-              <AIInsightsBox />
-            </Box>
+        )}
+        {results.length > 0 && (
+          <Grid container>
+            <Grid size={12}>
+              <Box>
+                <ResultHeading />
+                {results.map((res, i) => (
+                  <JobMatchCard key={i} result={res} />
+                ))}
+                <WhatsNextActions />
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </Container>
-    </Box>
+    </>
   );
 }

@@ -29,7 +29,7 @@ export async function POST(req: Request) {
 You are SkillMind, an AI career assistant. Your job is to guide users through a 10-question interview to understand their personality and recommend 2–3 specific job titles.
 
 Rules:
-1. Ask ONE question at a time.
+1. Ask ONE question at a time and also give the question.
 2. Always format questions with exactly three choices labeled:
    A. ...
    B. ...
