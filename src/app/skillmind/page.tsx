@@ -24,6 +24,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AssessmentTips from "../components/AssessmentTips";
 import NeedHelpBox from "../components/NeedHelpBox";
 import AIInsightsBox from "../components/AIInsightsBox";
+import PersonalInfoForm from "../components/PersonalInfoForm";
 
 export default function ChatPage() {
   const [messages, setMessages] = React.useState<
@@ -31,6 +32,8 @@ export default function ChatPage() {
   >([]);
   const [input, setInput] = React.useState("");
   const [options, setOptions] = React.useState<string[]>([]);
+  const [step, setStep] = React.useState<number>(1);
+  // const [personalInfo,setPersonalInfo] =
   const [loading, setLoading] = React.useState(false);
   const [results, setResults] = React.useState<
     {
@@ -121,6 +124,7 @@ export default function ChatPage() {
     setInput("");
     setOptions([]);
     setLoading(true);
+    setStep(step + 1);
 
     try {
       const response = await fetch(API_URL, {
@@ -185,11 +189,10 @@ export default function ChatPage() {
 
     setLoading(false);
   };
-
   return (
     <>
       <Container>
-        {results.length < 1 && (
+        {step !== 11 && (
           <Grid container spacing={2} mt={4}>
             <Grid size={{ xs: 12, md: 8 }}>
               <Box>
@@ -401,6 +404,9 @@ export default function ChatPage() {
                         </Box>
                       )}
                     </Box>
+                    {results.length > 0 && (
+                      <PersonalInfoForm setStep={setStep} />
+                    )}
                   </Box>
                 </Paper>
               </Box>
@@ -421,7 +427,8 @@ export default function ChatPage() {
             </Grid>
           </Grid>
         )}
-        {results.length > 0 && (
+
+        {results.length > 0 && step === 11 && (
           <Grid container>
             <Grid size={12}>
               <Box>

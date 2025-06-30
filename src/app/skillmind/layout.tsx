@@ -10,18 +10,14 @@ export default function CustomLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <header style={{ padding: "1rem" }}>
-          <Box>
-            <ResponsiveAppBar />
-          </Box>
-        </header>
-
-        <Box sx={{ padding: { xs: "0", md: "2rem" } }}>{children}</Box>
-
-        <Footer />
-      </body>
-    </html>
+    <>
+      <header style={{ padding: "1rem" }}>
+        <Box>
+          <ResponsiveAppBar />
+        </Box>
+      </header>
+      <Box sx={{ padding: { xs: "0", md: "2rem" } }}>{children}</Box>
+      <Footer />
+    </>
   );
 }

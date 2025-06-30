@@ -140,7 +140,7 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
             <Link href="/skillmind">
-              <Button variant="contained">Book a Demo</Button>
+              <Button variant="contained">Preview Demo</Button>
             </Link>
           </Box>
         </Toolbar>
